@@ -1,7 +1,8 @@
 #
 # speedup builds by pre-building all the heavy stuff, e.g. numpy
 #
-# docker build -t asah/mplfinance -f Dockerfile.mplfinance .; docker push asah/mplfinance
+# docker build -t asah/mplfinance .; docker push asah/mplfinance
+# sudo docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag asah/mplfinance:buildx-latest .
 #
 # run DNY inside docker, for reproducibility and ease of installation
 #
