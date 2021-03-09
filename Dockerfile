@@ -1,14 +1,11 @@
 #
 # speedup builds by pre-building all the heavy stuff, e.g. numpy
 #
-# sudo docker build -t asah/mplfinance .; sudo docker push asah/mplfinance
 # sudo docker buildx build --push --platform linux/arm64/v8,linux/amd64 --tag asah/mplfinance:buildx-latest .
 #
 # run DNY inside docker, for reproducibility and ease of installation
 #
 FROM python:3.9.1-buster
-RUN pip3 install numpy pandas pandasql install matplotlib mplfinance
-RUN pip3 install requests python-dateutil bs4 lxml pyyaml filelock
 
 # compile ta-lib from source
 # .NOTPARALLEL disables parallel builds - see https://trac.macports.org/changeset/115788
@@ -22,9 +19,8 @@ RUN wget -q http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz &&
     make install && \
     cd ..; rm -R ta-lib ta-lib-0.4.0-src.tar.gz
 
-RUN pip3 install ta-lib
+ADD . .
+
+RUN python3.9 -m pip install -r requirements.txt
 
 CMD [ "/bin/bash" ]
-
-
-# glibtoolize on mac
