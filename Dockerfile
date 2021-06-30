@@ -5,7 +5,7 @@
 #
 # run DNY inside docker, for reproducibility and ease of installation
 #
-FROM python:3.9.4-buster
+FROM python:3.9.6-buster
 
 # compile ta-lib from source
 # .NOTPARALLEL disables parallel builds - see https://trac.macports.org/changeset/115788
